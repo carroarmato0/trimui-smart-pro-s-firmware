@@ -24,15 +24,14 @@ PhoenixSuit/LiveSuit, device in Allwinner FEL mode.
 - **Performance Settings**: power presets + per-CPU-cluster and GPU frequency control
 - **Fan control** with temperature-based levels
 - **Audio settings**: channel swap, per-channel volume/gain, mic toggle, lower latency
-- **SD-card launcher hook** (NextUI/MinUI boot handoff) + boot splash
 - Fixes: dual-cluster CPU/temperature overlays, USB-storage game-DB refresh, updated input + Mali
   GPU drivers, updated translations
 
 ## Files & checksums (SHA-256)
 
 ```
-210a8e61edcc463a905fe15ea5f82aae534a754573a326712eeeebd5d79300b8  sd_recovery_tg5050_smart_pro_S_v1.0.2_20260715.7z   (312 MiB) — SD recovery card
-b7c26dc730f1d62478cbcb3172e9974d6f3a1d39071518ce57ad8553350461af  trimui_tg5050_20260715_v1.0.2.7z                    (297 MiB) — PhoenixSuit/LiveSuit awimg
+24b7d4d488ba4d1c7cd15485f552e6142e1cef864c470f544194c1fa132360e3  sd_recovery_tg5050_smart_pro_S_v1.0.2_20260715.7z   (297 MiB) — SD recovery card
+62837cd3680783c709657949bedc867a1b83cc8bbf2f18df2a27ae191f1334a6  trimui_tg5050_20260715_v1.0.2.7z                    (285 MiB) — PhoenixSuit/LiveSuit awimg
 ```
 
 Revert to official 1.0.1 anytime: <https://github.com/trimui/firmware_smartpro_s>
