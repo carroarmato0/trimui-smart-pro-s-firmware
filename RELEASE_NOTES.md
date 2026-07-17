@@ -4,7 +4,17 @@ Genuine TrimUI **1.0.2** for the Smart Pro S (TG5050), preserved from a retail d
 TrimUI ships 1.0.2 on hardware but has never released it (their public firmware stops at 1.0.1,
 Dec 2025). **Unofficial; not affiliated with TrimUI; use at your own risk.**
 
-## Install — SD card (recommended, no PC)
+## Install — SD card, no PC (recommended)
+
+**Option A — file copy, no disk imager needed:**
+
+1. Format a spare microSD as **FAT32**.
+2. Extract `trimui_tg5050.awimg` from `trimui_..._v1.0.2.7z` and copy it to the **root** of the card.
+3. Device **off** → insert the card → hold **Vol−** and press **Power** → wait ~10 s for the
+   **progress bar**.
+4. When it finishes, remove the card and power on. Confirm **Settings → Device Info → 1.0.2**.
+
+**Option B — whole-disk image (alternative):**
 
 1. Burn **`sd_recovery_..._v1.0.2_....7z`** → its `.img` to a **spare** microSD, whole-disk
    (balenaEtcher, the bundled Win32DiskImager, or GNOME Disks → *Restore Disk Image*).
@@ -30,8 +40,8 @@ PhoenixSuit/LiveSuit, device in Allwinner FEL mode.
 ## Files & checksums (SHA-256)
 
 ```
-24b7d4d488ba4d1c7cd15485f552e6142e1cef864c470f544194c1fa132360e3  sd_recovery_tg5050_smart_pro_S_v1.0.2_20260715.7z   (297 MiB) — SD recovery card
-62837cd3680783c709657949bedc867a1b83cc8bbf2f18df2a27ae191f1334a6  trimui_tg5050_20260715_v1.0.2.7z                    (285 MiB) — PhoenixSuit/LiveSuit awimg
+24b7d4d488ba4d1c7cd15485f552e6142e1cef864c470f544194c1fa132360e3  sd_recovery_tg5050_smart_pro_S_v1.0.2_20260715.7z   (297 MiB) — SD recovery card (Option B)
+e57ae26557df31bfe14a9f0f45917fc3f2fcb18f814a30ac17e8a283857e8a82  trimui_tg5050_20260715_v1.0.2.7z                    (285 MiB) — awimg (Option A / PhoenixSuit)
 ```
 
 Revert to official 1.0.1 anytime: <https://github.com/trimui/firmware_smartpro_s>
