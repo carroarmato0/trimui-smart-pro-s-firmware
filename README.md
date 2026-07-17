@@ -31,8 +31,6 @@ host keys) were removed for privacy. See [How it was built](#how-it-was-built).
   temperature and stops on sleep.
 - **Audio settings** — speaker/headphone channel swap, per-channel volume, gain, mic toggle, and
   lower audio latency.
-- **SD-card launcher hook** — boot can hand off to `/mnt/SDCARD/.tmp_update/updater`, the hook that
-  custom front-ends like **NextUI / MinUI** use, plus a new boot splash.
 - **Fixes & updates** — dual-cluster CPU-frequency overlay, corrected temperature reading,
   USB-storage now refreshes the game database after use, updated input + Mali GPU drivers, and
   updated translations.
@@ -43,36 +41,58 @@ Grab the latest [**Release**](../../releases/latest). There are two files — pi
 
 | File | Best for | You need |
 |---|---|---|
-| **`sd_recovery_..._v1.0.2_....7z`** | **most people** — burn to a spare SD card, it auto-flashes | just an SD card |
-| `trimui_tg5050_..._v1.0.2.7z` | recovery / PC users | a Windows PC + PhoenixSuit/LiveSuit |
+| **`trimui_tg5050_..._v1.0.2.7z`** | **most people** — copy one file to any FAT32 SD card, no disk imager | any microSD card |
+| `sd_recovery_..._v1.0.2_....7z` | rescue / won't-boot situations — whole-disk image, provides its own boot chain | spare SD card + disk imager |
 
-## How to update (SD card — recommended)
+## Will I lose my games and saves? **No.**
 
-### Will I lose my games and saves? **No.**
-Your ROMs, games and saves live on your **external microSD game card**, which you take *out* of the
-device to make room for the recovery card — so it's never touched. Put it back afterward and
-everything is there. The flash only rewrites internal storage, which on this device is normally
-empty. **Golden rule: burn the recovery image to a _spare_ card — never your game card.**
+The flash only rewrites the OS partitions (kernel, system, bootloader). It does **not** touch:
 
-### Steps
-1. Take a **spare** microSD (its contents get erased); a plain **≤ 32 GB** card is safest.
-2. Extract the `sd_recovery_...7z` and write the `.img` **to the whole card** with
-   [balenaEtcher](https://etcher.balena.io/), the bundled `Win32DiskImager`, or GNOME Disks →
-   *Restore Disk Image* (pick the **drive**, not a partition). Don't copy the `.img` in as a file.
+- Your **external microSD game card** — it's never accessed during flashing.
+- Your **internal game/save storage** (the UDISK area of the eMMC) — it sits outside the
+  partitions that get flashed and is left completely intact.
+
+In short: your games and saves are safe regardless of where you keep them.
+
+## How to update
+
+### Option A — file copy, no disk imager (recommended)
+
+1. Format a microSD card as **FAT32** (any size ≥ 1 GB works; you can use your game card if it's
+   FAT32 and has room, or a spare card).
+2. Extract `trimui_tg5050.awimg` from `trimui_tg5050_..._v1.0.2.7z` and copy it to the **root**
+   of the card. No other files needed.
 3. Turn the device **off** (hold Power ~20 s if you're unsure).
-4. Insert the card, plug **USB power into the bottom "DC" port** (a charger works — *not* the top
-   port), and press nothing. After ~10 s a **progress bar** appears and flashes the firmware.
-5. When it finishes, **remove the card and power on** (a manual reboot at the end is normal).
-6. Check **Settings → Device Info** — it should read **1.0.2**. Put your game card back. Done.
+4. Insert the card, hold **Vol−**, and press **Power**. After ~10 s a **progress bar** appears and
+   flashes the firmware.
+5. When it finishes, **remove the card and power on**.
+6. Check **Settings → Device Info** — it should read **1.0.2**. Done.
 
-Prefer a PC? Flash `trimui_tg5050.awimg` (from the other archive) with PhoenixSuit/LiveSuit, device
-in Allwinner FEL mode, DC port to the PC.
+### Option B — whole-disk SD recovery image (fallback / rescue)
+
+Use this if Option A doesn't work, or if the device is in a state where it won't boot at all. It
+provides its own boot chain and can recover a bricked unit.
+
+1. Take a **spare** microSD (≤ 32 GB recommended; its entire contents get erased).
+2. Extract `sd_recovery_..._v1.0.2_....7z` and write the `.img` **to the whole card** with
+   [balenaEtcher](https://etcher.balena.io/), the bundled `Win32DiskImager`, or GNOME Disks →
+   *Restore Disk Image* (pick the **drive**, not a partition). Don't copy the `.img` as a file.
+3. Turn the device **off**.
+4. Insert the card, plug **USB power into the bottom "DC" port** (not the top port), and press
+   nothing. After ~10 s a **progress bar** appears and flashes the firmware.
+5. When it finishes, **remove the card and power on**.
+6. Check **Settings → Device Info** — it should read **1.0.2**. Done.
+
+### Option C — PC (PhoenixSuit / LiveSuit)
+
+Flash `trimui_tg5050.awimg` (from the same archive as Option A) with PhoenixSuit or LiveSuit,
+device in Allwinner FEL mode (hold Vol− while plugging USB to PC), DC port to the PC.
 
 ## If something goes wrong
 
 You can always return to official **1.0.1** with TrimUI's own release:
 [`trimui/firmware_smartpro_s`](https://github.com/trimui/firmware_smartpro_s) — flash its
-`sd_recovery` card exactly the same way. The SD recovery flow is designed to rescue a bricked unit,
+`sd_recovery` card using Option B above. The SD recovery flow is designed to rescue a bricked unit,
 so this is low-risk — but **you do it at your own risk.**
 
 ## Checksums (SHA-256)
@@ -80,8 +100,8 @@ so this is low-risk — but **you do it at your own risk.**
 Verify your download before flashing:
 
 ```
-210a8e61edcc463a905fe15ea5f82aae534a754573a326712eeeebd5d79300b8  sd_recovery_tg5050_smart_pro_S_v1.0.2_20260715.7z
-b7c26dc730f1d62478cbcb3172e9974d6f3a1d39071518ce57ad8553350461af  trimui_tg5050_20260715_v1.0.2.7z
+24b7d4d488ba4d1c7cd15485f552e6142e1cef864c470f544194c1fa132360e3  sd_recovery_tg5050_smart_pro_S_v1.0.2_20260715.7z
+e57ae26557df31bfe14a9f0f45917fc3f2fcb18f814a30ac17e8a283857e8a82  trimui_tg5050_20260715_v1.0.2.7z
 ```
 
 ## How it was built
